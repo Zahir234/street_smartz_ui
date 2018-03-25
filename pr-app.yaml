@@ -1,0 +1,39 @@
+runtime: python27
+api_version: 1
+threadsafe: true
+
+handlers:
+- url: /assets
+  static_dir: dist/assets
+
+- url: /fonts
+  static_dir: dist/fonts
+
+- url: /scripts
+  static_dir: dist/scripts
+
+- url: /maps
+  static_dir: dist/maps
+
+- url: /styles
+  static_dir: dist/styles
+
+- url: /.*
+  static_files: dist/index.html
+  upload: dist/index.html
+
+- url: /
+  static_files: dist/index.html
+  upload: dist/index.html
+
+- url: /favicon.ico
+  static_files: dist/favicon.ico
+  upload: dist/favicon.ico
+
+skip_files:
+- node_modules/
+- bower_components/
+- src/
+- e2e/
+- .git/
+

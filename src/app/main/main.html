@@ -1,0 +1,79 @@
+<div class="container">
+
+  <div>
+    <acme-navbar creation-date="main.creationDate"></acme-navbar>
+  </div>
+
+  <div class="jumbotron text-center">
+    <h1 ng-hide="main.route_loaded">Street Smartz ATL</h1>
+
+
+
+  <p class="form-group">
+    <label>Start Location</label>
+   <!-- <input type="text" class="form-control"  ng-model="main.from_place" />-->
+
+    <input type="text" ng-model="main.from_place" placeholder="Origin" uib-typeahead="address for address in main.location_typeahead_change($viewValue, main.from_place_string)" typeahead-loading="main.loading_from_place" typeahead-no-results="noResults" class="form-control">
+
+    <i ng-show="main.loading_from_place" class="glyphicon glyphicon-refresh"></i>
+    <div ng-show="noResults">
+      <i class="glyphicon glyphicon-remove"></i> No Results Found
+    </div>
+
+    <label>Destination</label>
+    <!--<input type="text" class="form-control"  ng-model="main.to" />-->
+
+
+
+
+    <input type="text" ng-model="main.to" placeholder="Destination" uib-typeahead="address for address in main.location_typeahead_change($viewValue, main.to_string)" typeahead-loading="main.loading_to" typeahead-no-results="noResults" class="form-control">
+
+    <i ng-show="main.loading_to" class="glyphicon glyphicon-refresh"></i>
+    <div ng-show="noResults">
+      <i class="glyphicon glyphicon-remove"></i> No Results Found
+    </div>
+
+
+    <br>
+    <label class="btn btn-primary" ng-click="main.get_directions()" >Go Safely!</label>
+  </p>
+  </div>
+
+<div class="row" ng-hide="main.hide_map">
+  <div class="col-lg-6 col-sm-12">
+    <div class="panel panel-primary">
+      <div class="panel-heading">Map</div>
+      <div class="panel-body"> <div id="map_canvas" style="border: 2px solid #3872ac;height: 400px"></div>
+      <br>
+      <uib-accordion >
+    <div uib-accordion-group class="panel-primary" heading="Directions" >
+      <div ng-repeat="step in main.steps track by $index"><div ng-bind-html="step"></div> </div>
+    </div>
+
+
+    </div>
+    </div>
+
+  </div>
+
+    <div class="col-lg-6 col-sm-12" ng-repeat="route in main.routes track by $index">
+      <div class="panel panel-success" >
+<div class="panel-heading">Route Stats and Details</div>
+        <div class="panel-body">
+          <h3>Number of crimes: {{ route.crime_count }}</h3>
+          <h1> Crimes per day: </h1>
+          <canvas id="bar" class="chart chart-bar"
+  chart-data="route.day_data" chart-labels="main.labels"> chart-series="series"
+</canvas>
+          <h1> Crimes By Time of Day: </h1>
+<canvas id="doughnut" class="chart chart-doughnut"
+  chart-data="route.time_data" chart-labels="main.time_of_day">
+</canvas> 
+
+
+        </div>
+      </div>
+    </div>
+  </div>
+
+</div>
